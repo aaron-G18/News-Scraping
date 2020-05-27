@@ -1,0 +1,15 @@
+<div class="content-box">
+    <img src="/favicon/android-chrome-192x192.png">
+
+    <h1>Scrape the News!</h1>
+
+    <div class="left-col">
+        <h2>Articles that were scraped:</h2>
+
+        <ul>
+            {{#each articles}}
+            {{> article-block}}
+            {{/each}}
+        </ul>
+    </div>
+</div>
