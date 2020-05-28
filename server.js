@@ -51,6 +51,7 @@ app.get("/", function (req, res) {
         return {
           id: article._id,
           title: article.title,
+          summary: article.summary,
           link: article.link
         };
       });
@@ -87,9 +88,9 @@ app.get("/scrape", function (req, res) {
       // Save an empty result object
       var result = {};
 
-      // Get the title text and href of each article, and save them as properties of the result object
+      // Get the title, summary text, and href link of each article, and save them as properties of the result object
       result.title = $(this).find(".title").text();
-
+      result.summary = $(this).find(".teaser").text();
       result.link = $(this).children("a").attr("href");
 
       // Create a new Article using the `result` object built from scraping
