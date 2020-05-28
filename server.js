@@ -77,7 +77,7 @@ app.get("/", function (req, res) {
 
 
 // A GET route for scraping the NPR website
-app.get("/scrape", function (req, res) {
+app.get("/api/scrape", function (req, res) {
   // First, we grab the body of the html with axios
   axios.get("https://www.npr.org/").then(function (response) {
     // Then, we load that into cheerio and save it to $ for a shorthand selector
