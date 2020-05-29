@@ -1,0 +1,16 @@
+<div class="content-box">
+    <img class="news-paper" src="/images/newspaper.png">
+
+    <h1>Saved Articles</h1>
+    <button class="delete-all-saved">Delete All Articles From Saved</button>
+
+
+    <div class="left-col">
+        <h2>Saved Articles:</h2>
+        <ul>
+            {{#each articles}}
+            {{> saved-articles-block}}
+            {{/each}}
+        </ul>
+    </div>
+</div>

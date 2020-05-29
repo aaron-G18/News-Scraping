@@ -8,17 +8,49 @@ $.getJSON("/articles", function (data) {
 });
 
 // When Scrape New Articles button is clicked, scrape news and update the DB.
-$(document).on("click", "button", function () {
+$(document).on("click", ".scrape", function () {
   $.ajax({
     method: "GET",
     url: "/api/scrape"
   }).then(function () {
     // Refresh the page with the scraped articles.
-    // window.location.replace("/");
     location.reload();
   });
 });
 
+// When Save Article button is clicked, update the saved property to true.
+$(document).on("click", ".save-article", function () {
+  var thisId = $(this).attr("data-id");
+  $.ajax({
+    method: "POST",
+    url: "/api/save-article/" + thisId
+  }).then(function () {
+    // Refresh the page (to get only unsaved articles on the page)
+    location.reload();
+  });
+});
+
+// When Saved Articles button is clicked, change URL to /saved-articles to hit that route in html routes.
+$(document).on("click", ".saved-articles", function () {
+  window.location.assign("/saved-articles");
+
+  // $.ajax({
+  //   method: "GET",
+  //   url: "/saved-articles"
+  // }).then(function () {
+  //   window.location.assign("/saved-articles");
+  // });
+});
+
+// When delete all saved articles button is clicked, hit api route to update all article 'saved' properties to false and reload the page.
+$(document).on("click", ".delete-all-saved", function () {
+  $.ajax({
+    method: "POST",
+    url: "/api/delete-all-saved"
+  }).then(function () {
+    location.reload();
+  });
+});
 
 
 

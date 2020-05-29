@@ -24,7 +24,7 @@ module.exports = function (app) {
 
                 // Create a new Article using the `result` object built from scraping
                 db.Article.create(result)
-                    .then(function (dbArticle) {
+                    .then(function () {
                         // View the added result in the console
                         // console.log(dbArticle);
                         res.end();
@@ -40,6 +40,36 @@ module.exports = function (app) {
         });
 
     });
+
+    // Route for saving an article (setting saved property to true)
+    app.post("/api/save-article/:id", function (req, res) {
+        db.Article.findOneAndUpdate({
+            _id: req.params.id
+        }, {
+            saved: true
+        }).then(function () {
+            res.end();
+        }).catch(function (err) {
+            // If an error occurred, log it
+            console.log(err);
+        });
+    });
+
+
+    // Route for deleting all saved articles (updating all the saved properties to false)
+    app.post("/api/delete-all-saved", function (req, res) {
+        db.Article.updateMany({}, {
+            $set: {
+                saved: "false"
+            }
+        }).then(function () {
+            res.end();
+        }).catch(function (err) {
+            // If an error occurred, log it
+            console.log(err);
+        });
+    });
+
 
 
 

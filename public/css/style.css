@@ -94,3 +94,40 @@ button:hover {
 .save-article:active {
     background: #c43c35;
 }
+
+
+.article-notes {
+    margin-left: 1%;
+}
+
+
+.delete-saved {
+    margin-left: 1%;
+    background-color: #ee5f5b;
+    background-color: #ca3535;
+    border-color: #c43c35;
+}
+
+.delete-saved:hover {
+    background-color: #ee5f5b;
+}
+
+.delete-saved:active {
+    background: #c43c35;
+}
+
+
+.delete-all-saved {
+    margin-left: 1%;
+    background-color: #ee5f5b;
+    background-color: #ca3535;
+    border-color: #c43c35;
+}
+
+.delete-all-saved:hover {
+    background-color: #ee5f5b;
+}
+
+.delete-all-saved:active {
+    background: #c43c35;
+}
