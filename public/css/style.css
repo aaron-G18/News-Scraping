@@ -144,3 +144,21 @@ button:hover {
 .save-note:active {
     background: #57a957;
 }
+
+
+
+
+.delete-note {
+    background-color: #ee5f5b;
+    background-color: #ca3535;
+    border-color: #c43c35;
+    margin-left: 2%;
+}
+
+.delete-note:hover {
+    background-color: #ee5f5b;
+}
+
+.delete-note:active {
+    background: #c43c35;
+}
