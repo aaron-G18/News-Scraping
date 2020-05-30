@@ -9,6 +9,7 @@ $.getJSON("/articles", function (data) {
 
 // When Scrape New Articles button is clicked, scrape news and update the DB.
 $(document).on("click", ".scrape", function () {
+  event.preventDefault();
   $.ajax({
     method: "GET",
     url: "/api/scrape"
@@ -20,6 +21,7 @@ $(document).on("click", ".scrape", function () {
 
 // When Save Article button is clicked, update the saved property to true.
 $(document).on("click", ".save-article", function () {
+  event.preventDefault();
   var thisId = $(this).attr("data-id");
   $.ajax({
     method: "POST",
@@ -32,11 +34,13 @@ $(document).on("click", ".save-article", function () {
 
 // When Saved Articles button is clicked, change URL to /saved-articles to hit that route in html routes.
 $(document).on("click", ".saved-articles", function () {
+  event.preventDefault();
   window.location.assign("/saved-articles");
 });
 
 // When delete all saved articles button is clicked, hit api route to update all article 'saved' properties to false and reload the page.
 $(document).on("click", ".delete-all-saved", function () {
+  event.preventDefault();
   $.ajax({
     method: "POST",
     url: "/api/delete-all-saved"
@@ -47,6 +51,7 @@ $(document).on("click", ".delete-all-saved", function () {
 
 // When an individual article's Delete From Saved button is clicked, hit api route to update that article's saved property to false and reload the page.
 $(document).on("click", ".delete-saved", function () {
+  event.preventDefault();
   var thisId = $(this).attr("data-id");
   $.ajax({
     method: "POST",
@@ -58,6 +63,7 @@ $(document).on("click", ".delete-saved", function () {
 
 // When the Clear These Articles button is clicked, hit the API route to clear all unsaved articles.
 $(document).on("click", ".clear-articles", function () {
+  event.preventDefault();
   $.ajax({
     method: "POST",
     url: "/api/delete-all-unsaved"
@@ -68,33 +74,32 @@ $(document).on("click", ".clear-articles", function () {
 
 // When the Return to Home Page button is clicked, re-direct to the home page.
 $(document).on("click", ".home", function () {
+  event.preventDefault();
   window.location.assign("/");
 });
 
 
-// When Article Notes button is clicked, pop modal
+// When Article Notes button is clicked, pop modal and populate with any notes for that article.
 $(document).on("click", ".article-notes", function (event) {
   event.preventDefault();
-  console.log("pop modal")
+  var thisId = $(this).attr("data-id");
+  $(".save-note").removeData("article-id");
+  $(".save-note").data("article-id", thisId);
+  // console.log($(".save-note").data("article-id"))
 
-  $(".article-notes").modal();
+});
 
 
 
-  // console.log(userData);
-
-  // $.post("/api/friends", userData, function (compFriend) {
-
-  //     $("#comp-friend-name").html(compFriend.name);
-  //     $("#comp-friend-img").attr("src", compFriend.photo);
-
-  //     $("#notes-modal").modal();
-  // });
+// When Save Note button is clicked, hit api route to save the note.
+$(document).on("click", ".save-note", function (event) {
+  event.preventDefault();
+  var thisId = $(this).data("article-id");
+  console.log(thisId);
 
 
 
 });
-
 
 
 

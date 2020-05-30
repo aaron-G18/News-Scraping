@@ -6,6 +6,10 @@ a {
     margin-right: 1%;
 }
 
+input {
+    width: 100%;
+}
+
 .content-box {
     margin-left: 5%;
     margin-right: 5%;
@@ -125,4 +129,18 @@ button:hover {
 
 .delete-all-saved:active {
     background: #c43c35;
+}
+
+.save-note {
+    margin-left: 1%;
+    background-color: #57a957;
+    border-color: #57a957;
+}
+
+.save-note:hover {
+    background-color: #62c462;
+}
+
+.save-note:active {
+    background: #57a957;
 }
