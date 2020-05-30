@@ -121,7 +121,7 @@ $(document).on("click", ".save-note", function (event) {
       body: noteText,
       articleId: thisId
     }
-  }).then(function () {
+  }).then(function (data) {
     $.ajax({
       method: "GET",
       url: "/api/article-notes/" + thisId
@@ -133,7 +133,8 @@ $(document).on("click", ".save-note", function (event) {
       for (i = 0; i < notesArr.length; i++) {
         // console.log("note number " + i + ": " + notesArr[i])
         $("#notes").append("<li>" + notesArr[i].body + "</li>")
-      }
+      };
+      $("#note-body").val("");
     });
 
 

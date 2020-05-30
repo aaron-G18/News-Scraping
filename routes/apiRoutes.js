@@ -111,18 +111,18 @@ module.exports = function (app) {
             })
             .then(function () {
                 // Update the notes displayed in the modal
-                db.Note.find({
-                    articleId: articleId
-                }).then(function (notesArr) {
-                    // console.log(notesArr);
-                    // for loop over all the notes with this article id to display them.
-                    var i;
-                    for (i = 0; i < notesArr.length; i++) {
-                        console.log("note number " + i + ": " + notesArr[i])
-                    }
+                // db.Note.find({
+                //     articleId: articleId
+                // }).then(function (notesArr) {
+                //     // console.log(notesArr);
+                //     // for loop over all the notes with this article id to display them.
+                //     var i;
+                //     for (i = 0; i < notesArr.length; i++) {
+                //         console.log("note number " + i + ": " + notesArr[i])
+                //     }
 
-                });
-
+                // });
+                res.end();
 
             })
             .catch(function (err) {
