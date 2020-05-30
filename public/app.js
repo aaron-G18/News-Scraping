@@ -1,14 +1,5 @@
-// Grab the articles as a json
-$.getJSON("/articles", function (data) {
-  // For each one
-  for (var i = 0; i < data.length; i++) {
-    // Display the apropos information on the page
-    $("#articles").append("<p data-id='" + data[i]._id + "'>" + data[i].title + "<br />" + data[i].link + "</p>");
-  }
-});
-
 // When Scrape New Articles button is clicked, scrape news and update the DB.
-$(document).on("click", ".scrape", function () {
+$(document).on("click", ".scrape", function (event) {
   event.preventDefault();
   $.ajax({
     method: "GET",
@@ -20,7 +11,7 @@ $(document).on("click", ".scrape", function () {
 });
 
 // When Save Article button is clicked, update the saved property to true.
-$(document).on("click", ".save-article", function () {
+$(document).on("click", ".save-article", function (event) {
   event.preventDefault();
   var thisId = $(this).attr("data-id");
   $.ajax({
@@ -33,13 +24,13 @@ $(document).on("click", ".save-article", function () {
 });
 
 // When Saved Articles button is clicked, change URL to /saved-articles to hit that route in html routes.
-$(document).on("click", ".saved-articles", function () {
+$(document).on("click", ".saved-articles", function (event) {
   event.preventDefault();
   window.location.assign("/saved-articles");
 });
 
 // When delete all saved articles button is clicked, hit api route to update all article 'saved' properties to false and reload the page.
-$(document).on("click", ".delete-all-saved", function () {
+$(document).on("click", ".delete-all-saved", function (event) {
   event.preventDefault();
   $.ajax({
     method: "POST",
@@ -50,7 +41,7 @@ $(document).on("click", ".delete-all-saved", function () {
 });
 
 // When an individual article's Delete From Saved button is clicked, hit api route to update that article's saved property to false and reload the page.
-$(document).on("click", ".delete-saved", function () {
+$(document).on("click", ".delete-saved", function (event) {
   event.preventDefault();
   var thisId = $(this).attr("data-id");
   $.ajax({
@@ -62,7 +53,7 @@ $(document).on("click", ".delete-saved", function () {
 });
 
 // When the Clear These Articles button is clicked, hit the API route to clear all unsaved articles.
-$(document).on("click", ".clear-articles", function () {
+$(document).on("click", ".clear-articles", function (event) {
   event.preventDefault();
   $.ajax({
     method: "POST",
@@ -98,7 +89,7 @@ $(document).on("click", ".article-notes", function (event) {
     var i;
     for (i = 0; i < notesArr.length; i++) {
       // console.log("note number " + i + ": " + notesArr[i])
-      $("#notes").append("<li>" + notesArr[i].body + "</li>")
+      $("#notes").append("<li>" + notesArr[i].body + "<button class='delete-note' data-noteid='" + notesArr[i]._id + "' data-articleid='" + thisId + "'>X</button></li>")
     }
   });
 
@@ -127,20 +118,40 @@ $(document).on("click", ".save-note", function (event) {
       url: "/api/article-notes/" + thisId
     }).then(function (notesArr) {
       // for loop over all the notes with this article id to display them.
-      console.log("Save Note button notesArr: ", notesArr);
       $("#notes").empty();
       var i;
       for (i = 0; i < notesArr.length; i++) {
-        // console.log("note number " + i + ": " + notesArr[i])
-        $("#notes").append("<li>" + notesArr[i].body + "</li>")
+        $("#notes").append("<li>" + notesArr[i].body + "<button class='delete-note' data-noteid='" + notesArr[i]._id + "' data-articleid='" + thisId + "'>X</button></li>")
       };
       $("#note-body").val("");
     });
-
-
   });
 });
 
+
+// When the "X" next to a note is clicked to delete that note, hit the api route to delete that note and then update the modal
+$(document).on("click", ".delete-note", function (event) {
+  event.preventDefault();
+  var thisNoteId = $(this).data("noteid");
+  var thisId = $(this).data("articleid");
+  $.ajax({
+    method: "POST",
+    url: "/api/delete-article-note/" + thisNoteId
+  }).then(function (data) {
+    $.ajax({
+      method: "GET",
+      url: "/api/article-notes/" + thisId
+    }).then(function (notesArr) {
+      // for loop over all the notes with this article id to display them.
+      $("#notes").empty();
+      var i;
+      for (i = 0; i < notesArr.length; i++) {
+        $("#notes").append("<li>" + notesArr[i].body + "<button class='delete-note' data-noteid='" + notesArr[i]._id + "' data-articleid='" + thisId + "'>X</button></li>")
+      };
+      $("#note-body").val("");
+    });
+  });
+});
 
 
 

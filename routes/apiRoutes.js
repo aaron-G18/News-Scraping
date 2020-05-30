@@ -110,20 +110,7 @@ module.exports = function (app) {
                 });
             })
             .then(function () {
-                // Update the notes displayed in the modal
-                // db.Note.find({
-                //     articleId: articleId
-                // }).then(function (notesArr) {
-                //     // console.log(notesArr);
-                //     // for loop over all the notes with this article id to display them.
-                //     var i;
-                //     for (i = 0; i < notesArr.length; i++) {
-                //         console.log("note number " + i + ": " + notesArr[i])
-                //     }
-
-                // });
                 res.end();
-
             })
             .catch(function (err) {
                 // If an error occurred, send it to the client
@@ -132,17 +119,12 @@ module.exports = function (app) {
     });
 
 
-
+    // Route for getting all notes by article id.
     app.get("/api/article-notes/:id", function (req, res) {
         var articleId = req.params.id;
         db.Note.find({
             articleId: articleId
         }).then(function (notesArr) {
-            // for loop over all the notes with this article id to display them.
-            // var i;
-            // for (i = 0; i < notesArr.length; i++) {
-            //     console.log("note number " + i + ": " + notesArr[i])
-            // }
             res.json(notesArr);
         }).catch(function (err) {
             // If an error occurred, send it to the client
@@ -150,4 +132,20 @@ module.exports = function (app) {
         });
 
     });
+
+
+    // Route for deleting a single note by that note's id.
+    app.post("/api/delete-article-note/:id", function (req, res) {
+        var noteId = req.params.id;
+        db.Note.deleteOne({
+            _id: noteId
+        }).then(function () {
+            res.end();
+        }).catch(function (err) {
+            // If an error occurred, send it to the client
+            res.json(err);
+        })
+    });
+
+
 };
