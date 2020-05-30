@@ -2,7 +2,8 @@
     <h3>{{title}}</h3>
     <p>{{summary}}</p>
     <a href="{{link}}" target="_blank">Click here to see the full story.</a>
-    <button class="article-notes" data-toggle="modal" data-target="#notes-modal" data-id="{{id}}">Article Notes</button>
+    <button class="article-notes" data-toggle="modal" data-target="#notes-modal" data-id="{{id}}"
+        data-title="{{title}}">Article Notes</button>
     <button class="delete-saved" data-id="{{id}}">Delete From Saved</button>
 </li>
 
@@ -11,12 +12,13 @@
 
         <div class="modal-content">
             <div class="modal-header">
-                <h2 class="modal-title"><strong>Notes</strong></h2>
+                <h2 class="modal-title article-title"><strong></strong></h2>
+
             </div>
             <div class="modal-body">
-                <h2 id="note"></h2>
                 <p>Enter New Note Here:</p>
                 <textarea id="note-body" placeholder="Type New Note Here"></textarea>
+                <ul id="notes"></ul>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default save-note" data-id="">Save Note</button>

@@ -83,10 +83,26 @@ $(document).on("click", ".home", function () {
 $(document).on("click", ".article-notes", function (event) {
   event.preventDefault();
   var thisId = $(this).attr("data-id");
+  var thisTitle = $(this).attr("data-title");
   // Save the article id as data on the save note button.
   $(".save-note").removeData("article-id");
   $(".save-note").data("article-id", thisId);
-  // console.log($(".save-note").data("article-id"))
+  $(".article-title").text(thisTitle);
+  $.ajax({
+    method: "GET",
+    url: "/api/article-notes/" + thisId
+  }).then(function (notesArr) {
+    // for loop over all the notes with this article id to display them.
+    console.log("Article Notes button notesArr: ", notesArr);
+    $("#notes").empty();
+    var i;
+    for (i = 0; i < notesArr.length; i++) {
+      // console.log("note number " + i + ": " + notesArr[i])
+      $("#notes").append("<li>" + notesArr[i].body + "</li>")
+    }
+  });
+
+
 
 });
 
@@ -97,7 +113,7 @@ $(document).on("click", ".save-note", function (event) {
   event.preventDefault();
   var thisId = $(this).data("article-id");
   var noteText = $("#note-body").val().trim();
-  console.log(noteText);
+  console.log("Save Note button note text: ", noteText);
   $.ajax({
     method: "POST",
     url: "/api/save-article-note/" + thisId,
@@ -106,12 +122,26 @@ $(document).on("click", ".save-note", function (event) {
       articleId: thisId
     }
   }).then(function () {
-    // Refresh the page (to get only unsaved articles on the page)
-    $("#note-body").val("");
+    $.ajax({
+      method: "GET",
+      url: "/api/article-notes/" + thisId
+    }).then(function (notesArr) {
+      // for loop over all the notes with this article id to display them.
+      console.log("Save Note button notesArr: ", notesArr);
+      $("#notes").empty();
+      var i;
+      for (i = 0; i < notesArr.length; i++) {
+        // console.log("note number " + i + ": " + notesArr[i])
+        $("#notes").append("<li>" + notesArr[i].body + "</li>")
+      }
+    });
+
+
   });
-
-
 });
+
+
+
 
 
 

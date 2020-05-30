@@ -95,7 +95,7 @@ module.exports = function (app) {
     // Route for saving a note for an article.
     app.post("/api/save-article-note/:id", function (req, res) {
         // Create a new note and pass the req.body to the entry
-        console.log(req.body);
+        var articleId = req.params.id;
         db.Note.create(req.body)
             .then(function (dbNote) {
                 // If a Note was created successfully, find one Article with an `_id` equal to `req.params.id`. Update the Article to be associated with the new Note
@@ -109,9 +109,21 @@ module.exports = function (app) {
                     new: true
                 });
             })
-            .then(function (dbArticle) {
-                // If we were able to successfully update an Article, send it back to the client
-                res.json(dbArticle);
+            .then(function () {
+                // Update the notes displayed in the modal
+                db.Note.find({
+                    articleId: articleId
+                }).then(function (notesArr) {
+                    // console.log(notesArr);
+                    // for loop over all the notes with this article id to display them.
+                    var i;
+                    for (i = 0; i < notesArr.length; i++) {
+                        console.log("note number " + i + ": " + notesArr[i])
+                    }
+
+                });
+
+
             })
             .catch(function (err) {
                 // If an error occurred, send it to the client
@@ -119,4 +131,23 @@ module.exports = function (app) {
             });
     });
 
+
+
+    app.get("/api/article-notes/:id", function (req, res) {
+        var articleId = req.params.id;
+        db.Note.find({
+            articleId: articleId
+        }).then(function (notesArr) {
+            // for loop over all the notes with this article id to display them.
+            // var i;
+            // for (i = 0; i < notesArr.length; i++) {
+            //     console.log("note number " + i + ": " + notesArr[i])
+            // }
+            res.json(notesArr);
+        }).catch(function (err) {
+            // If an error occurred, send it to the client
+            res.json(err);
+        });
+
+    });
 };
