@@ -34,11 +34,7 @@ module.exports = function (app) {
                         console.log(err);
                     });
             });
-
-
-
         });
-
     });
 
     // Route for saving an article (setting saved property to true)
@@ -56,7 +52,7 @@ module.exports = function (app) {
     });
 
 
-    // Route for deleting all saved articles (updating all the saved properties to false)
+    // Route for 'deleting' all saved articles (updating all the saved properties to false)
     app.post("/api/delete-all-saved", function (req, res) {
         db.Article.updateMany({}, {
             $set: {
@@ -70,6 +66,31 @@ module.exports = function (app) {
         });
     });
 
+    // Route for 'deleting' a single saved article from saved articles (updating the saved property to false)
+    app.post("/api/delete-saved/:id", function (req, res) {
+        db.Article.findOneAndUpdate({
+            _id: req.params.id
+        }, {
+            saved: false
+        }).then(function () {
+            res.end();
+        }).catch(function (err) {
+            // If an error occurred, log it
+            console.log(err);
+        });
+    });
+
+    // Route for deleting all articles, that aren't saved, from the main page
+    app.post("/api/delete-all-unsaved", function (req, res) {
+        db.Article.deleteMany({
+            saved: false
+        }).then(function () {
+            res.end();
+        }).catch(function (err) {
+            // If an error occurred, log it
+            console.log(err);
+        });
+    });
 
 
 

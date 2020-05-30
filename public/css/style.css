@@ -2,6 +2,10 @@ li {
     list-style-image: url(../images/newspaper-small.png);
 }
 
+a {
+    margin-right: 1%;
+}
+
 .content-box {
     margin-left: 5%;
     margin-right: 5%;
@@ -82,27 +86,19 @@ button:hover {
 
 .save-article {
     margin-left: 1%;
-    background-color: #ee5f5b;
-    background-color: #ca3535;
-    border-color: #c43c35;
+    background-color: #57a957;
+    border-color: #57a957;
 }
 
 .save-article:hover {
-    background-color: #ee5f5b;
+    background-color: #62c462;
 }
 
 .save-article:active {
-    background: #c43c35;
+    background: #57a957;
 }
-
-
-.article-notes {
-    margin-left: 1%;
-}
-
 
 .delete-saved {
-    margin-left: 1%;
     background-color: #ee5f5b;
     background-color: #ca3535;
     border-color: #c43c35;
@@ -118,7 +114,6 @@ button:hover {
 
 
 .delete-all-saved {
-    margin-left: 1%;
     background-color: #ee5f5b;
     background-color: #ca3535;
     border-color: #c43c35;
