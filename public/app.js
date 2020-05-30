@@ -13,7 +13,7 @@ $(document).on("click", ".scrape", function (event) {
 // When Save Article button is clicked, update the saved property to true.
 $(document).on("click", ".save-article", function (event) {
   event.preventDefault();
-  var thisId = $(this).attr("data-id");
+  let thisId = $(this).attr("data-id");
   $.ajax({
     method: "POST",
     url: "/api/save-article/" + thisId
@@ -43,7 +43,7 @@ $(document).on("click", ".delete-all-saved", function (event) {
 // When an individual article's Delete From Saved button is clicked, hit api route to update that article's saved property to false and reload the page.
 $(document).on("click", ".delete-saved", function (event) {
   event.preventDefault();
-  var thisId = $(this).attr("data-id");
+  let thisId = $(this).attr("data-id");
   $.ajax({
     method: "POST",
     url: "/api/delete-saved/" + thisId
@@ -73,8 +73,8 @@ $(document).on("click", ".home", function () {
 // When Article Notes button is clicked, pop modal and populate with any notes for that article.
 $(document).on("click", ".article-notes", function (event) {
   event.preventDefault();
-  var thisId = $(this).attr("data-id");
-  var thisTitle = $(this).attr("data-title");
+  let thisId = $(this).attr("data-id");
+  let thisTitle = $(this).attr("data-title");
   // Save the article id as data on the save note button.
   $(".save-note").removeData("article-id");
   $(".save-note").data("article-id", thisId);
@@ -86,7 +86,7 @@ $(document).on("click", ".article-notes", function (event) {
     // for loop over all the notes with this article id to display them.
     console.log("Article Notes button notesArr: ", notesArr);
     $("#notes").empty();
-    var i;
+    let i;
     for (i = 0; i < notesArr.length; i++) {
       // console.log("note number " + i + ": " + notesArr[i])
       $("#notes").append("<li>" + notesArr[i].body + "<button class='delete-note' data-noteid='" + notesArr[i]._id + "' data-articleid='" + thisId + "'>X</button></li>")
@@ -102,8 +102,8 @@ $(document).on("click", ".article-notes", function (event) {
 // When Save Note button is clicked, hit api route to save the note.
 $(document).on("click", ".save-note", function (event) {
   event.preventDefault();
-  var thisId = $(this).data("article-id");
-  var noteText = $("#note-body").val().trim();
+  let thisId = $(this).data("article-id");
+  let noteText = $("#note-body").val().trim();
   console.log("Save Note button note text: ", noteText);
   $.ajax({
     method: "POST",
@@ -119,7 +119,7 @@ $(document).on("click", ".save-note", function (event) {
     }).then(function (notesArr) {
       // for loop over all the notes with this article id to display them.
       $("#notes").empty();
-      var i;
+      let i;
       for (i = 0; i < notesArr.length; i++) {
         $("#notes").append("<li>" + notesArr[i].body + "<button class='delete-note' data-noteid='" + notesArr[i]._id + "' data-articleid='" + thisId + "'>X</button></li>")
       };
@@ -132,8 +132,8 @@ $(document).on("click", ".save-note", function (event) {
 // When the "X" next to a note is clicked to delete that note, hit the api route to delete that note and then update the modal
 $(document).on("click", ".delete-note", function (event) {
   event.preventDefault();
-  var thisNoteId = $(this).data("noteid");
-  var thisId = $(this).data("articleid");
+  let thisNoteId = $(this).data("noteid");
+  let thisId = $(this).data("articleid");
   $.ajax({
     method: "POST",
     url: "/api/delete-article-note/" + thisNoteId
@@ -144,80 +144,11 @@ $(document).on("click", ".delete-note", function (event) {
     }).then(function (notesArr) {
       // for loop over all the notes with this article id to display them.
       $("#notes").empty();
-      var i;
+      let i;
       for (i = 0; i < notesArr.length; i++) {
         $("#notes").append("<li>" + notesArr[i].body + "<button class='delete-note' data-noteid='" + notesArr[i]._id + "' data-articleid='" + thisId + "'>X</button></li>")
       };
       $("#note-body").val("");
     });
   });
-});
-
-
-
-
-
-
-// Whenever someone clicks a p tag
-$(document).on("click", "p", function () {
-  // Empty the notes from the note section
-  $("#notes").empty();
-  // Save the id from the p tag
-  var thisId = $(this).attr("data-id");
-
-  // Now make an ajax call for the Article
-  $.ajax({
-      method: "GET",
-      url: "/articles/" + thisId
-    })
-    // With that done, add the note information to the page
-    .then(function (data) {
-      console.log(data);
-      // The title of the article
-      $("#notes").append("<h2>" + data.title + "</h2>");
-      // An input to enter a new title
-      $("#notes").append("<input id='titleinput' name='title' >");
-      // A textarea to add a new note body
-      $("#notes").append("<textarea id='bodyinput' name='body'></textarea>");
-      // A button to submit a new note, with the id of the article saved to it
-      $("#notes").append("<button data-id='" + data._id + "' id='savenote'>Save Note</button>");
-
-      // If there's a note in the article
-      if (data.note) {
-        // Place the title of the note in the title input
-        $("#titleinput").val(data.note.title);
-        // Place the body of the note in the body textarea
-        $("#bodyinput").val(data.note.body);
-      }
-    });
-
-});
-
-// When you click the savenote button
-$(document).on("click", "#savenote", function () {
-  // Grab the id associated with the article from the submit button
-  var thisId = $(this).attr("data-id");
-
-  // Run a POST request to change the note, using what's entered in the inputs
-  $.ajax({
-      method: "POST",
-      url: "/articles/" + thisId,
-      data: {
-        // Value taken from title input
-        title: $("#titleinput").val(),
-        // Value taken from note textarea
-        body: $("#bodyinput").val()
-      }
-    })
-    // With that done
-    .then(function (data) {
-      // Log the response
-      console.log(data);
-      // Empty the notes section
-      $("#notes").empty();
-    });
-
-  // Also, remove the values entered in the input and textarea for note entry
-  $("#titleinput").val("");
-  $("#bodyinput").val("");
 });

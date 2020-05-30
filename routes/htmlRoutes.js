@@ -1,4 +1,4 @@
-var db = require("../models");
+let db = require("../models");
 
 module.exports = function (app) {
 
@@ -10,7 +10,7 @@ module.exports = function (app) {
                 'summary': -1
             })
             .then(function (dbArticles) {
-                var a = dbArticles.map(function (article) {
+                let a = dbArticles.map(function (article) {
                     return {
                         id: article._id,
                         title: article.title,
@@ -19,7 +19,7 @@ module.exports = function (app) {
                     };
                 });
 
-                var hbsObject = {
+                let hbsObject = {
                     articles: a
                 };
                 res.render("index", hbsObject);
@@ -39,7 +39,7 @@ module.exports = function (app) {
                 'summary': -1
             })
             .then(function (dbArticles) {
-                var a = dbArticles.map(function (article) {
+                let a = dbArticles.map(function (article) {
                     return {
                         id: article._id,
                         title: article.title,
@@ -48,7 +48,7 @@ module.exports = function (app) {
                     };
                 });
 
-                var hbsObject = {
+                let hbsObject = {
                     articles: a
                 };
                 res.render("saved-articles", hbsObject);

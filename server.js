@@ -1,20 +1,20 @@
-var express = require("express");
-var logger = require("morgan");
-var mongoose = require("mongoose");
+let express = require("express");
+let logger = require("morgan");
+let mongoose = require("mongoose");
 
 // Our scraping tools
 // Axios is a promised-based http library, similar to jQuery's Ajax method
 // It works on the client and on the server
-var axios = require("axios");
-var cheerio = require("cheerio");
+let axios = require("axios");
+let cheerio = require("cheerio");
 
 // Require all models
-var db = require("./models");
+let db = require("./models");
 
-var PORT = process.env.PORT || 3000;
+let PORT = process.env.PORT || 3000;
 
 // Initialize Express
-var app = express();
+let app = express();
 
 // Configure middleware
 
@@ -29,14 +29,14 @@ app.use(express.json());
 app.use(express.static("public"));
 
 // Set Handlebars
-var exphbs = require("express-handlebars");
+let exphbs = require("express-handlebars");
 app.engine("handlebars", exphbs({
   defaultLayout: "main"
 }));
 app.set("view engine", "handlebars");
 
 // Connect to the Mongo DB
-var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/newsScraping";
+let MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/newsScraping";
 mongoose.connect(MONGODB_URI, {
   useNewUrlParser: true
 });
@@ -44,7 +44,7 @@ mongoose.connect(MONGODB_URI, {
 // Routes
 require("./routes/apiRoutes")(app);
 require("./routes/htmlRoutes")(app);
-var syncOptions = {
+let syncOptions = {
   force: false
 };
 

@@ -1,6 +1,6 @@
-var db = require("../models");
-var axios = require("axios");
-var cheerio = require("cheerio");
+let db = require("../models");
+let axios = require("axios");
+let cheerio = require("cheerio");
 
 
 module.exports = function (app) {
@@ -10,12 +10,12 @@ module.exports = function (app) {
         // First, we grab the body of the html with axios
         axios.get("https://www.npr.org/sections/news").then(function (response) {
             // Then, we load that into cheerio and save it to $ for a shorthand selector
-            var $ = cheerio.load(response.data);
+            let $ = cheerio.load(response.data);
 
             // Now, we grab every div with a class of "story-text", and do the following:
             $(".item-info").each(function (i, element) {
                 // Save an empty result object
-                var result = {};
+                let result = {};
 
                 // Get the title, summary text, and href link of each article, and save them as properties of the result object
                 result.title = $(this).find(".title").text();
@@ -95,7 +95,7 @@ module.exports = function (app) {
     // Route for saving a note for an article.
     app.post("/api/save-article-note/:id", function (req, res) {
         // Create a new note and pass the req.body to the entry
-        var articleId = req.params.id;
+        let articleId = req.params.id;
         db.Note.create(req.body)
             .then(function (dbNote) {
                 // If a Note was created successfully, find one Article with an `_id` equal to `req.params.id`. Update the Article to be associated with the new Note
@@ -121,7 +121,7 @@ module.exports = function (app) {
 
     // Route for getting all notes by article id.
     app.get("/api/article-notes/:id", function (req, res) {
-        var articleId = req.params.id;
+        let articleId = req.params.id;
         db.Note.find({
             articleId: articleId
         }).then(function (notesArr) {
@@ -136,7 +136,7 @@ module.exports = function (app) {
 
     // Route for deleting a single note by that note's id.
     app.post("/api/delete-article-note/:id", function (req, res) {
-        var noteId = req.params.id;
+        let noteId = req.params.id;
         db.Note.deleteOne({
             _id: noteId
         }).then(function () {
