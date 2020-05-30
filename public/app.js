@@ -83,6 +83,7 @@ $(document).on("click", ".home", function () {
 $(document).on("click", ".article-notes", function (event) {
   event.preventDefault();
   var thisId = $(this).attr("data-id");
+  // Save the article id as data on the save note button.
   $(".save-note").removeData("article-id");
   $(".save-note").data("article-id", thisId);
   // console.log($(".save-note").data("article-id"))
@@ -95,8 +96,19 @@ $(document).on("click", ".article-notes", function (event) {
 $(document).on("click", ".save-note", function (event) {
   event.preventDefault();
   var thisId = $(this).data("article-id");
-  console.log(thisId);
-
+  var noteText = $("#note-body").val().trim();
+  console.log(noteText);
+  $.ajax({
+    method: "POST",
+    url: "/api/save-article-note/" + thisId,
+    data: {
+      body: noteText,
+      articleId: thisId
+    }
+  }).then(function () {
+    // Refresh the page (to get only unsaved articles on the page)
+    $("#note-body").val("");
+  });
 
 
 });
