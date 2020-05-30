@@ -1,4 +1,4 @@
-li {
+.article-list {
     list-style-image: url(../images/newspaper-small.png);
 }
 
@@ -144,9 +144,6 @@ button:hover {
 .save-note:active {
     background: #57a957;
 }
-
-
-
 
 .delete-note {
     background-color: #ee5f5b;
