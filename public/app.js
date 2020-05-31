@@ -10,6 +10,7 @@ $(document).on("click", ".scrape", function (event) {
   });
 });
 
+
 // When Save Article button is clicked, update the saved property to true.
 $(document).on("click", ".save-article", function (event) {
   event.preventDefault();
@@ -23,11 +24,13 @@ $(document).on("click", ".save-article", function (event) {
   });
 });
 
+
 // When Saved Articles button is clicked, change URL to /saved-articles to hit that route in html routes.
 $(document).on("click", ".saved-articles", function (event) {
   event.preventDefault();
   window.location.assign("/saved-articles");
 });
+
 
 // When delete all saved articles button is clicked, hit api route to update all article 'saved' properties to false and reload the page.
 $(document).on("click", ".delete-all-saved", function (event) {
@@ -39,6 +42,7 @@ $(document).on("click", ".delete-all-saved", function (event) {
     location.reload();
   });
 });
+
 
 // When an individual article's Delete From Saved button is clicked, hit api route to update that article's saved property to false and reload the page.
 $(document).on("click", ".delete-saved", function (event) {
@@ -52,6 +56,7 @@ $(document).on("click", ".delete-saved", function (event) {
   });
 });
 
+
 // When the Clear These Articles button is clicked, hit the API route to clear all unsaved articles.
 $(document).on("click", ".clear-articles", function (event) {
   event.preventDefault();
@@ -62,6 +67,7 @@ $(document).on("click", ".clear-articles", function (event) {
     location.reload();
   });
 });
+
 
 // When the Return to Home Page button is clicked, re-direct to the home page.
 $(document).on("click", ".home", function () {
@@ -92,11 +98,7 @@ $(document).on("click", ".article-notes", function (event) {
       $("#notes").append("<li>" + notesArr[i].body + "<button class='delete-note' data-noteid='" + notesArr[i]._id + "' data-articleid='" + thisId + "'>X</button></li>")
     }
   });
-
-
-
 });
-
 
 
 // When Save Note button is clicked, hit api route to save the note.

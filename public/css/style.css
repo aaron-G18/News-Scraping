@@ -22,9 +22,8 @@ a {
 }
 
 
-
-
-
+/* BUTTONS */
+/*         */
 button::-moz-focus-inner {
     border: 0;
     padding: 0;
@@ -150,6 +149,7 @@ button:hover {
     background-color: #ca3535;
     border-color: #c43c35;
     margin-left: 2%;
+    margin-bottom: 5px;
 }
 
 .delete-note:hover {

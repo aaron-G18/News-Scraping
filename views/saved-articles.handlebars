@@ -14,4 +14,29 @@
             {{/each}}
         </ul>
     </div>
+
+
+    {{!-- modal --}}
+
+    <div id="notes-modal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title article-title"><strong></strong></h2>
+
+                </div>
+                <div class="modal-body">
+                    <p>Enter New Note Here:</p>
+                    <textarea id="note-body" placeholder="Type New Note Here"></textarea>
+                    <ul id="notes"></ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default save-note" data-id="">Save Note</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
 </div>
