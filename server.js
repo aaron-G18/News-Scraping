@@ -33,7 +33,7 @@ app.engine("handlebars", exphbs({
 app.set("view engine", "handlebars");
 
 // Connect to the Mongo DB
-let MONGODB_URI = process.env.DB_URI || "mongodb+srv://user1:1password1@heroku-ag-news-scraping.umzmn.mongodb.net/heroku_g0n5zgqc?retryWrites=true&w=majority";
+let MONGODB_URI = process.env.DB_URI || "mongodb+srv://user1:password1@heroku-ag-news-scraping.umzmn.mongodb.net/heroku_g0n5zgqc?retryWrites=true&w=majority";
 mongoose.connect(MONGODB_URI, {
   useNewUrlParser: true
 });
